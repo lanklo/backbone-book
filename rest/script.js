@@ -7,13 +7,18 @@ var Todo = Backbone.Model.extend({
 
 var TodoCollection = Backbone.Collection.extend({
 	model: Todo,
-	url: 'todos'
+	url: '/todo.php'
 });
 
 var todos = new TodoCollection();
 todos.fetch();
+console.log(todos);
 
-var todo2 = todos.get(2);
+todos.add({
+	id: 2, "title": "test", "completed": true
+})
+
+todo2 = todos.get(2);
 todo2.save();
 todo2.destroy();
 
