@@ -25,3 +25,8 @@ todo2.destroy();
 todos.create({title: 'Example'});
 
 // Частичное сохранение с помощью PATCH
+var model = new Backbone.Model();
+model.clear().set({id: 1, a: 1, b: 2, c: 3, d: 4});
+model.save();
+model.save({b: 2, d: 4}, {patch: true});
+console.log(this.syncArgs.method);
