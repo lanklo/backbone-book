@@ -99,8 +99,62 @@ ourObject3.on('skip', doAction);
 ourObject3.trigger('dance', 'dancing', '15 min');
 ourObject3.trigger('dance jump skip', 'on fire', '5 min');
 
+// listen and stopListening
+console.log('========');
+var a = _.extend({}, Backbone.Events);
+var b = _.extend({}, Backbone.Events);
+var c = _.extend({}, Backbone.Events);
 
+a.listenTo(b, 'anything', function(event) {
+	console.log('anything happened');
+});
+a.listenTo(c, 'everything', function(event) {
+	console.log('everything happened');
+});
+b.trigger('anything');
+a.stopListening();
+b.trigger('anything');
+c.trigger('everything');
 
+console.log('========');
+var view = new Backbone.View();
+var b = _.extend({}, Backbone.Events);
+view.listenTo(b, 'all', function() {
+	console.log(true);
+});
+b.trigger('any');
+view.listenTo(b, 'all', function() {
+	console.log(false);
+});
+view.remove();
+b.trigger('any');
 
+console.log('========');
+// События и представления
+console.log('События и представления');
+
+var todoView = Backbone.View.extend({
+	el: '#todo',
+	events: {
+		'click [type="checkbox"]': 'clicked'
+	},
+	initialize: function() {
+		this.$el.click(this.jqueryClicked);
+
+		this.on('apiEvent', this.callback);
+	},
+	clicked: function(event) {
+		console.log('event handeled for ' + this.el.outerHTML);
+		this.trigger('apiEvent', event.type);
+	},
+	jqueryClicked: function(event) {
+		console.log('event handeled for ' + this.outerHTML);
+	},
+	callback: function(eventType) {
+		console.log('event type was ' + eventType);
+	}
+});
+
+var todo1 = new todoView();
 
 
