@@ -1,4 +1,9 @@
 var app = app || {};
+var ENTER_KEY = 13;
+
+$(function() {
+	new app.AppView();
+});
 
 app.AppView = Backbone.View.extend({
 	el: '#todoapp',
@@ -26,13 +31,13 @@ app.AppView = Backbone.View.extend({
 	},
 
 	render: function() {
-		var completed = appTodos.completed().length;
-		var remaining = appTodos.remaining().length;
+		var completed = app.Todos.completed().length;
+		var remaining = app.Todos.remaining().length;
 
 		if (app.Todos.length) {
 			this.$main.show();
 			this.$footer.show();
-			this.$main.html(this.statsTemplate({
+			this.$footer.html(this.statsTemplate({
 				completed: completed,
 				remaining: remaining
 			}));
