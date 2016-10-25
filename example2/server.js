@@ -105,7 +105,7 @@ port, app.settings.env );
 	});
 
 	// обновление книги
-	api.get('/api/books/:id', function(request, response) {
+	app.put('/api/books/:id', function(request, response) {
 		return BookModel.findById(request.params.id, function(err, book) {
 			book.title = request.body.title;
 			book.author = request.body.author;
